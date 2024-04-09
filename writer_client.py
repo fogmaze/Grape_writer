@@ -4,18 +4,18 @@ import writer
 import requests
 import scorer_py as scorer
 
-host = "localhost"
+host = "150.116.202.108:49"
+host = "localhost:8000"
 
 def getFile(filename) :
-    r = requests.get("http://"+host+":8000/"+filename, stream=True)
+    r = requests.get("http://"+host+"/"+filename, stream=True)
     with open(filename, 'wb') as file:
         for chunk in r.iter_content(chunk_size=8192):
             file.write(chunk)
 
-
 def postFile(filename) :
     with open(filename, 'rb') as file:
-        r = requests.post("http://"+host+":8000/"+filename, data=file)
+        r = requests.post("http://"+host+"/"+filename, data=file)
     print(r.text)
 
 if __name__ == "__main__":
@@ -23,11 +23,10 @@ if __name__ == "__main__":
         print("Warn: database file already exists")
         sleep(1)
     getFile("highSchool.db")
-    getFile("data.pkl")
     try:
         writer.operate()
-        scores = scorer.Scores()
-        scorer.startScoring(scores)
+        print("start scoring...")
+        scorer.startScoring()
     finally:
         postFile("highSchool.db")
         postFile("data.pkl")

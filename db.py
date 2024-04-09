@@ -1,7 +1,7 @@
 import os
 import sqlite3 as sql
 
-db_path = "datas/highSchool.db"
+db_path = "highSchool.db"
 class DataBaseOperator():
     def __init__(self):
         if not os.path.isfile('highSchool.db'):

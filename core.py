@@ -49,11 +49,9 @@ def mergeEncodedTags(strs:Tuple[str]):
 
 def openSettings():
     db_operator = DataBaseOperator()
-    db_operator.cur.execute("select * from settings;")
+    db_operator.cur.execute("select * from settings where account='ali';")
     recv_data = db_operator.cur.fetchall()
-    if not len(recv_data) == 1:
-        raise
-    wr_method,wr_tags,te_methods,te_tags,te_lp,te_co,te_level = recv_data[0]
+    wr_method,wr_tags,te_methods,te_tags,te_lp,te_co,te_level,_ = recv_data[0]
     return {
         'wr':{
             "method":wr_method,
@@ -71,7 +69,7 @@ def openSettings():
 def saveSettings(settings):
     db_operator = DataBaseOperator()
     data = (settings['wr']["method"], settings['wr']['tags'],encodeList(settings['te']['methods']), settings['te']['tags'], settings['te']['load_provious'],settings['te']['collector'],settings['te']['level'])
-    db_operator.cur.execute("update settings set wr_method=?, wr_tags=?, te_methods=?, te_tags=?, te_lp=?, te_co=?, te_level=?",data)
+    db_operator.cur.execute("update settings set wr_method=?, wr_tags=?, te_methods=?, te_tags=?, te_lp=?, te_co=?, te_level=? where account='ali'",data)
     db_operator.con.commit()
     db_operator.close()
 

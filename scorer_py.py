@@ -27,8 +27,11 @@ class Scores:
         with open("data.pkl", "wb") as f:
             pickle.dump(self.data, f)
 
-def startScoring(scores: Scores):
+def startScoring():
     wv = api.load("word2vec-google-news-300")
+    with open("data.pkl", "wb") as f:
+        pickle.dump([], f)
+    scores = Scores()
 
     db_operator = DataBaseOperator()
     db_operator.cur.execute("SELECT id FROM en_voc ORDER BY id DESC LIMIT 1")
