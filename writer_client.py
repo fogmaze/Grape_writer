@@ -29,12 +29,12 @@ if __name__ == "__main__":
         scorer.startScoring()
     finally:
         postFile("highSchool.db")
-        postFile("data.pkl")
+        postFile("data_np.pkl")
         print("posted")
         while True:
             try:
                 os.remove('highSchool.db')
-                os.remove('data.pkl')
+                os.remove('data_np.pkl')
             except:
                 print('cannot remove db file')
                 sleep(1)
