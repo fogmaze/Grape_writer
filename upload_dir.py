@@ -21,6 +21,9 @@ def postFile(filename, destname=None) :
 
 if __name__ == "__main__":
     # list all files and dirs in the directory
+    postFile("data_np.pkl")
+    postFile("highSchool.db")
+    exit()
     files = []
     files += [os.path.join("web", n) for n in os.listdir("web/")]
     for file in files:
